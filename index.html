@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nithin Sai Durga — Portfolio</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root{
+      --bg-flat: linear-gradient(180deg,#e6faff 0%, #eaf6ff 50%, #ffffff 100%); /* soft light-blue gradient */
+      --accent-1: #60a5fa; /* blue accent */
+      --accent-2: #0b3d91; /* darker blue for headings/nav */
+      --accent-3: #7dd3fc; /* cyan accent */
+      --muted: #475569; /* muted text */
+      --glass: rgba(11,18,32,0.03);
+      --card: #ffffff;
+      --radius: 14px;
+      --text: #0b1220; /* dark text on light bg */
+      --btn-text: #0b1220;
+      --btn-bg: #e6f7ff; /* subtle blue button background */
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--text);background:var(--bg-flat);-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+
+    /* subtle decorative background accents (muted, low-opacity) */
+    body::before, body::after{content:none}
+
+    /* top nav */
+    header{position:fixed;left:0;right:0;top:16px;margin:0 auto;max-width:1100px;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;z-index:40}
+    .brand{color:var(--accent-2);font-weight:700;font-size:18px;letter-spacing:0.4px}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--accent-2);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600;opacity:0.95;transition:all .18s}
+    nav a:hover{background:var(--glass);transform:translateY(-3px)}
+
+    /* mobile hamburger */
+    .hamburger{display:none;background:transparent;border:0;color:var(--muted);font-size:20px}
+
+    /* container */
+    .wrap{position:relative;z-index:10;max-width:1100px;margin:0 auto;padding:100px 28px 60px}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:center}
+    .intro{max-width:720px}
+    .eyebrow{display:inline-block;background:rgba(11,18,32,0.03);padding:6px 10px;border-radius:999px;color:var(--muted);font-weight:600;margin-bottom:18px}
+    h1{font-size:42px;line-height:1.02;color:var(--text);margin-bottom:12px}
+    .name-highlight{font-weight:800;background:linear-gradient(90deg,var(--accent-1),var(--accent-2),var(--accent-3));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:300% 100%;animation:backgroundShift 1.8s linear infinite}
+
+    @keyframes backgroundShift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    @keyframes bgFlow{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    @keyframes blobMove{
+      0%{transform:translate3d(0,0,0) scale(1)}
+      50%{transform:translate3d(28px,-36px,0) scale(1.06)}
+      100%{transform:translate3d(0,0,0) scale(1)}
+    }
+
+    /* background animation removed for stable grey background */
+    .roles{color:var(--muted);font-size:18px;margin-bottom:18px}
+    .lead{color:var(--muted);line-height:1.6}
+
+    .cta{margin-top:20px;display:flex;gap:12px}
+    .btn{background:var(--btn-bg);color:var(--btn-text);padding:12px 16px;border-radius:12px;font-weight:700;border:0;cursor:pointer;box-shadow:0 6px 18px rgba(15,23,42,0.06);transition:transform .16s}
+    .btn.secondary{background:transparent;color:var(--muted);border:1px solid rgba(15,23,42,0.06)}
+    .btn:active{transform:translateY(2px)}
+
+    /* profile card */
+    .card{background:var(--card);padding:22px;border-radius:var(--radius);backdrop-filter: blur(4px);box-shadow:0 8px 20px rgba(2,8,23,0.06);border:1px solid rgba(2,6,23,0.04)}
+    .avatar{width:100%;height:220px;background:linear-gradient(135deg,var(--accent-2),var(--accent-1));border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--btn-text);font-weight:800;font-size:28px}
+
+    /* theme toggle removed */
+
+    /* back-to-top */
+    .to-top{position:fixed;right:20px;bottom:28px;background:var(--btn-bg);color:var(--btn-text);border:0;padding:12px 12px;border-radius:999px;box-shadow:0 10px 30px rgba(15,23,42,0.08);display:none;align-items:center;justify-content:center;z-index:60;cursor:pointer}
+    .to-top.show{display:flex}
+    .meta{margin-top:14px;color:var(--muted);font-size:14px}
+
+    /* sections */
+    section{margin-top:60px}
+    .section-title{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+    .section-title h3{color:var(--accent-2);font-size:20px;margin:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+
+    .skill{background:var(--card);padding:16px;border-radius:12px;display:flex;align-items:center;gap:12px;transition:transform .22s,box-shadow .22s}
+    .skill i{font-size:22px;color:var(--accent-1)}
+    .skill:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(2,8,23,0.6)}
+
+    .project{background:#ffffff;padding:18px;border-radius:12px;transition:transform .22s,box-shadow .22s;background-clip:padding-box}
+    .project h4{color:var(--text);margin-bottom:8px}
+    .project p{color:var(--muted);line-height:1.5}
+    .project:hover{transform:translateY(-8px);box-shadow:0 16px 40px rgba(15,23,42,0.08)}
+
+    /* footer */
+    footer{margin-top:48px;text-align:center;color:var(--muted);padding:36px 18px}
+
+    /* reveal animations */
+    .reveal{opacity:0;transform:translateY(18px);transition:all .7s cubic-bezier(.15,.9,.32,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* responsive */
+    @media(max-width:980px){.hero{grid-template-columns:1fr;}.wrap{padding-top:80px}.hamburger{display:block}.nav-hidden{display:none}}
+    @media(max-width:520px){h1{font-size:32px}.avatar{height:160px}}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">Nithin Sai Durga</div>
+    <nav id="nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="hamburger" id="hamb"> <i class="fa-solid fa-bars"></i> </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="home" class="hero">
+      <div class="intro reveal" data-delay="0">
+        <span class="eyebrow">Aspiring Software Developer</span>
+        <h1>Hi, I'm <span class="name-highlight">Nithin</span> — building delightful experiences</h1>
+        <div class="roles" id="roles">Java • Python • Web</div>
+        <p class="lead">I design and develop web applications with a focus on clean interfaces, performant code, and delightful interactions. I enjoy working across the stack and learning new technologies.</p>
+        <div class="cta">
+          <a class="btn" href="#projects">View Projects</a>
+          <a class="btn secondary" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <aside class="card reveal" data-delay="120">
+        <div class="avatar">
+          <img src="WhatsApp Image 2025-12-24 at 11.22.26_54c65413.jpg" alt="Nithin Sai Durga" style="width:100%;height:100%;object-fit:cover;border-radius:12px;display:block" />
+        </div>
+        <div class="meta">
+          <strong>Nithin Sai Durga Madhuraboina</strong>
+          <div style="margin-top:6px">9642098994 • <a href="https://instagram.com/nithin_9_2" target="_blank">@nithin_9_2</a></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="reveal" data-delay="220">
+      <div class="section-title"><h3>About</h3></div>
+      <p style="color:var(--muted);max-width:880px;line-height:1.7">I am an aspiring software developer with a foundation in Java, Python and web technologies. I build accessible, responsive and maintainable applications — from landing pages to event platforms. I enjoy collaborating, learning, and shipping projects that people find useful.</p>
+    </section>
+
+    <section id="skills" class="reveal" data-delay="300">
+      <div class="section-title"><h3>Skills</h3></div>
+      <div class="grid">
+        <div class="skill"><i class="fa-brands fa-java"></i><div><strong>Java</strong><div style="color:var(--muted);font-size:13px">OOP, Collections</div></div></div>
+        <div class="skill"><i class="fa-brands fa-python"></i><div><strong>Python</strong><div style="color:var(--muted);font-size:13px">Scripting, Data</div></div></div>
+        <div class="skill"><i class="fa-brands fa-html5"></i><div><strong>HTML & CSS</strong><div style="color:var(--muted);font-size:13px">Responsive UI</div></div></div>
+        <div class="skill"><i class="fa-brands fa-js"></i><div><strong>JavaScript</strong><div style="color:var(--muted);font-size:13px">DOM, ES6+</div></div></div>
+        <div class="skill"><i class="fa-solid fa-database"></i><div><strong>SQL</strong><div style="color:var(--muted);font-size:13px">Design & Queries</div></div></div>
+        <div class="skill"><i class="fa-brands fa-react"></i><div><strong>React</strong><div style="color:var(--muted);font-size:13px">SPA, Hooks</div></div></div>
+        <div class="skill"><i class="fa-brands fa-node-js"></i><div><strong>Node.js</strong><div style="color:var(--muted);font-size:13px">APIs & Servers</div></div></div>
+        <div class="skill"><i class="fa-solid fa-code-branch"></i><div><strong>Git</strong><div style="color:var(--muted);font-size:13px">Version Control</div></div></div>
+        <!-- Docker and AWS removed per request -->
+      </div>
+    </section>
+
+    <section id="projects" class="reveal" data-delay="380">
+      <div class="section-title"><h3>Projects</h3></div>
+      <div class="grid">
+        <article class="project">
+          <h4>School Website</h4>
+          <p>Responsive site for school information with accessible navigation and modular components for easy updates by staff.</p>
+          <div style="margin-top:12px"><a class="btn secondary" href="#">View Project</a></div>
+        </article>
+
+        <article class="project">
+          <h4>Extent Explore</h4>
+          <p>College events platform featuring subscription-based event discovery and integrated social updates for live event feeds.</p>
+          <div style="margin-top:12px"><a class="btn secondary" href="#">View Project</a></div>
+        </article>
+
+        <article class="project">
+          <h4>Personal Portfolio</h4>
+          <p>A modern personal portfolio (this site) demonstrating responsive design, animations, and clean component structure.</p>
+          <div style="margin-top:12px"><a class="btn secondary" href="#">View Project</a></div>
+        </article>
+
+        <article class="project">
+          <h4>Chat Connect</h4>
+          <p>A lightweight realtime chat demo built with WebSockets and a Node.js backend for live messaging and rooms.</p>
+          <div style="margin-top:12px"><a class="btn secondary" href="#">View Project</a></div>
+        </article>
+
+        <!-- TaskFlow removed per user request -->
+      </div>
+    </section>
+    
+    <section id="passions" class="reveal" data-delay="420">
+      <div class="section-title"><h3>Passionate in Food Court and Bike Riding</h3></div>
+      <div class="grid">
+        <article class="project">
+          <h4><i class="fa-solid fa-utensils" style="margin-right:8px;color:var(--accent-1)"></i>Food Court Explorer</h4>
+          <p>I'm passionate about exploring food courts — sampling diverse cuisines, finding new favourites, and enjoying the social vibe while discovering budget-friendly bites.</p>
+        </article>
+
+        <article class="project">
+          <h4><i class="fa-solid fa-bicycle" style="margin-right:8px;color:var(--accent-1)"></i>Bike Riding</h4>
+          <p>I enjoy bike riding for both recreation and commuting — weekend long rides, discovering local routes, and maintaining my bike to keep adventures rolling.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal" data-delay="460">
+      <div class="section-title"><h3>Contact</h3></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <a class="btn" href="tel:9642098994"><i class="fa-solid fa-phone" style="margin-right:8px"></i>Call</a>
+        <a class="btn secondary" href="https://instagram.com/nithin_9_2" target="_blank"><i class="fa-brands fa-instagram" style="margin-right:8px"></i>Instagram</a>
+        <a class="btn secondary" href="#"><i class="fa-brands fa-linkedin" style="margin-right:8px"></i>LinkedIn</a>
+        <a class="btn secondary" href="#"><i class="fa-brands fa-github" style="margin-right:8px"></i>GitHub</a>
+      </div>
+    </section>
+
+    <footer>© 2025 Nithin Sai Durga Madhuraboina</footer>
+  </main>
+  <button id="toTop" class="to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script>
+    // mobile nav toggle
+    const hamb = document.getElementById('hamb');
+    const nav = document.getElementById('nav');
+    hamb && hamb.addEventListener('click', ()=>{nav.classList.toggle('nav-hidden')});
+
+    // reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      })
+    },{threshold:0.12});
+    revealEls.forEach(el=>obs.observe(el));
+
+    // tiny roles typing effect
+    const rolesEl = document.getElementById('roles');
+    const roles = ['Java • Python • Web','Frontend • Backend • APIs','Clean Code • Curious Learner'];
+    let ri=0, ci=0;
+    function tick(){
+      rolesEl.textContent = roles[ri].slice(0,ci);
+      ci++;
+      if(ci>roles[ri].length){ci=0;ri=(ri+1)%roles.length;setTimeout(tick,900);return}
+      setTimeout(tick,60);
+    }
+    rolesEl && setTimeout(tick,600);
+
+    // theme toggle removed per user request
+
+    // back-to-top button behavior
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=>{
+      if(window.scrollY > 250) toTop.classList.add('show'); else toTop.classList.remove('show');
+    });
+    toTop && toTop.addEventListener('click', ()=>{window.scrollTo({top:0,behavior:'smooth'})});
+  </script>
+
+</body>
+</html>
